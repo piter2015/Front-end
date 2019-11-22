@@ -3,23 +3,26 @@
 // state:
 // lifeCycle: mounted, change
 // method: pause, restart
+
 const PROPERTY_SYMBOL = Symbol('property')
 const ATTRIBUTE_SYMBOL = Symbol('attribute')
 const EVENT_SYMBOL = Symbol('event')
 import initGesture from '../carousel/gesture/gesture.js'
+import { myCreate } from '../../../有好货页面/tool/create'
+
 export default class Carousel {
     constructor () {
         this[PROPERTY_SYMBOL] = Object.create(null)
         this[ATTRIBUTE_SYMBOL] = Object.create(null)
         this[EVENT_SYMBOL] = Object.create(null)
+        this.init()
     }
-    init (element) {
+    init () {
         this.container = document.createElement('div')
-        this.container.style.width = this.width
-        this.container.style.height = this.height
         this.container.style.whiteSpace = 'nowrap'
         this.container.style.overflow = 'hidden'
-        for (let i = 0; i < this.images.length; i++) {
+        const images = this.getAttribute('images')
+        for (let i = 0; i < images.length; i++) {
             const imageElement = document.createElement('img')
             imageElement.src = this.images[i]
             imageElement.style.width = '100%'
@@ -31,7 +34,7 @@ export default class Carousel {
             })
             this.container.appendChild(imageElement)
         }
-        element.appendChild(this.container)
+        // element.appendChild(this.container)
         this.mounted()
     }
     mounted () {
@@ -165,6 +168,9 @@ export default class Carousel {
     get interval () {
         return this[PROPERTY_SYMBOL].interval
     }
+    appendTo (body) {
+        body.appendChild(this.container)
+    }
     addEventListener (type, listener) {
         if (!this[EVENT_SYMBOL][type]) {
             this[EVENT_SYMBOL][type] = new Set()
@@ -192,7 +198,13 @@ export default class Carousel {
 
     }
     setAttribute (name, value) {
+        if (name === 'style') {
+            this.container.setAttribute('style', value)
+            return
+        }
+        return this[ATTRIBUTE_SYMBOL][name] = value
     }
     getAttribute (name) {
+        return this[ATTRIBUTE_SYMBOL][name]
     }
 }

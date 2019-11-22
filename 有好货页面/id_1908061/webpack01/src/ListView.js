@@ -1,9 +1,15 @@
 import Div from './Div.js';
 import {create} from './create.js';
+// import css from './ListView.css';
+
 const PROPERTY_SYMBOL = Symbol("property");
 const ATTRIBUTE_SYMBOL = Symbol("attribute");
 const EVENT_SYMBOL = Symbol("event");
 const STATE_SYMBOL = Symbol("state");
+
+// let styleElement = document.createElement('style');
+// styleElement.innerHTML = css;
+// document.getElementsByTagName('head')[0].appendChild(styleElement);
 
 export default class ListView {
     constructor(config){
@@ -19,10 +25,16 @@ export default class ListView {
         element.appendChild(this.root);
         this.mounted();
     }
-
+    // addStyle(){
+    //     this.styleElement = document.createElement('style');
+    //     this.styleElement.innerHTML = css;
+    //     this.root.appendChild(this.styleElement);
+    // }
     created(){
         this.root = document.createElement("div");
+        this.root.classList.add('list-view');
         this.render().appendTo(this.root);
+        // this.addStyle();
     }
     mounted(){
 
@@ -39,7 +51,7 @@ export default class ListView {
         return <Div>
             {
                 data.map( item => (
-                    <div><span>{item.a}</span><span>{item.b}</span></div>
+                    <div><span class = 'x y'>{item.a}</span><span>{item.b}</span></div>
                 ))
             }
         </Div>;
@@ -68,6 +80,7 @@ export default class ListView {
             this[ATTRIBUTE_SYMBOL][name] = value;
             this.root.innerHTML = '';
             this.render().appendTo(this.root);
+            // this.addStyle();
             return value;
         }
         return this[ATTRIBUTE_SYMBOL][name] = value;

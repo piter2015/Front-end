@@ -22,7 +22,8 @@ export default class ScrollView {
         this.root = document.createElement("div");
         this.placeHolder = document.createElement("div");
         // this.placeHolder.innerText = "加载更多";
-        this.placeHolder.style.backgroundColor = "lightgreen";
+        this.placeHolder.classList.add('place-holder');
+        this.placeHolder.style.textAlign = 'center';
         this.root.appendChild(this.placeHolder);
         this.root.addEventListener("scroll", event => {
             let clientRect = this.root.getBoundingClientRect();

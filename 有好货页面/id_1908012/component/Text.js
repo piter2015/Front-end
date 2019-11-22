@@ -9,7 +9,6 @@ export default class Text {
         this[ATTRIBUTE_SYMBOL] = Object.create(null);
         this[EVENT_SYMBOL] = Object.create(null);
         this[STATE_SYMBOL] = Object.create(null);
-        
         this.text = config || "";
 
         this[PROPERTY_SYMBOL].children = [];
